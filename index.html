@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marvel Universe Quiz</title>
+    <title>Coding Quiz</title>
     <link rel = "stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <h1>This is the Marvel Quiz</h1>
-    <div class="score-container">
-    <h3>Your Score: </h3>
-    </div>
-    <div class="start-section">
-        <h4>This is a quiz to test your knowledge of the Marvel Universe! If you think you are ready, click the button below!</h4>
-        <button onClick="yay()">Start Quiz</button>
-    </div>
-    <div id="display-questions">
-        <p></p>
-    </div>
+    <header>
+        <h2>Your Quiz</h2>
+    </header>
+    <main>
+        <div class="container">
+            <div id ="q-container"></div>
+                <div id = "answersList">
+                    <button id="start-quiz">Start Quiz</button>
+                </div>
+                <div id="answer-boolean"></div>
+        </div>
+    </main>
+    
 
 <script src="assets/js/script.js"></script>
 </body>
