@@ -9,16 +9,22 @@
 <body>
     <header>
         <h2>Your Quiz</h2>
+        <div id="timer"></div>
     </header>
     <main>
         <div class="container">
             <div id ="q-container"></div>
-                <div id = "answersList">
+                <div id = "answersList"></div>
                     <button id="start-quiz">Start Quiz</button>
-                </div>
                 <div id="answer-boolean"></div>
         </div>
     </main>
+
+    <!--High Scores Page-->
+    <section id="save-container">
+        <h3>Please initial to save your score</h3>
+        <input type="text" id="players-initials" placeholder="Your Initials Here" maxlength="2"/>
+    </section>
     
 
 <script src="assets/js/script.js"></script>
