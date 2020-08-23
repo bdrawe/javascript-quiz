@@ -8,36 +8,40 @@ let answerBool = document.getElementById("answer-boolean");
 let saveContainerText = document.getElementById("save-container");
 let controlButton = document.querySelector('button');
 let startButton = document.getElementById("start-quiz");
-let timeLeft = 3;
+let displayScore = document.querySelector("#displayScore");
+let pastInt = document.querySelector("#pastInt");
+let pastScore = document.querySelector("#pastScore");
+let card = document.querySelector(".card");
+let timeLeft = 200;
 let score = 0;
-let totalPts = 15;
-answerCounter = 0;
+let totalPts = 15
 let questionCounter = 0;
 let allPlayersScore = [];
+let submitButton = document.querySelector("#submit");
 let questions = [
     {
        question: "When was Javascript first used?",
        answers: [
            {a: 2001, correct: false},
-           {a: 1995, correct: true},
-           {a: 1500, correct: false},
+           {b: 1995, correct: true},
+           {c: 1500, correct: false},
        ]
-       //questions[0].answers[1].correct
+       //questions[questionCounter].answers[1].correct
     },
     {
         question: "Which prompt returns the boolean true or false?",
         answers: [
             {a: "Prompt", correct: true},
-            {a: "Alert", correct: false},
-            {a: "Confirm", correct: false},
+            {b: "Alert", correct: false},
+            {c: "Confirm", correct: false},
         ]
      },
      {
         question: "What is the DOM API that makes prevents the default of a form submission?",
         answers: [
             {a: ".preventDefault", correct: true},
-            {a: "_blank", correct: false},
-            {a: ".delaySubmission", correct: false},
+            {b: "_blank", correct: false},
+            {c: ".delaySubmission", correct: false},
         ]
      },
 ];
@@ -50,66 +54,55 @@ let startQuiz =  function(){
     //silence the button!
     startButton.style.display="none";
 
-    for(let i = 0; i < questions.length; i++)
-    {
-        let answer = document.createElement("button");
-        answer.className = 'ansOptions';
-        answer.value = questions[i].answers[i].a;
-        answer.textContent = questions[i].answers[i].a;
-        answersList.appendChild(answer);
-        // console.log(questions[0].answers[1].correct);
-    };
     //first button
-    // let answerOne = document.createElement("button");
-    // answerOne.className = 'ansOptions';
-    // answerOne.value = questions[0].answers[0].a;
-    // answerOne.textContent = questions[0].answers[0].a;
-    // answersList.appendChild(answerOne);
+    let answerOne = document.createElement("button");
+    answerOne.id = 'ansOptions';
+    answerOne.value = questions[questionCounter].answers[0].a;
+    answerOne.textContent = questions[questionCounter].answers[0].a;
+    answersList.appendChild(answerOne);
 
-    // //second button
-    // let answerTwo = document.createElement("button");
-    // answerTwo.className = 'ansOptions';
-    // answerTwo.id = "answerTwo";
-    // answerTwo.value = questions[0].answers[1].a;
-    // answerTwo.textContent = questions[0].answers[1].a;
-    // answersList.appendChild(answerTwo);
+    //second button
+    let answerTwo = document.createElement("button");
+    answerTwo.id = 'ansOptions';
+    answerTwo.value = questions[questionCounter].answers[1].b;
+    answerTwo.textContent = questions[questionCounter].answers[1].b;
+    answersList.appendChild(answerTwo);
     
-    // //third button
-    // let answerThree = document.createElement("button");
-    // answerThree.className = 'ansOptions';
-    // answerThree.value = questions[0].answers[2].a;
-    // answerThree.textContent = questions[0].answers[2].a;
-    // answersList.appendChild(answerThree);
-    // answerThree.onclick = control()
+    //third button
+    let answerThree = document.createElement("button");
+    answerThree.id = 'ansOptions';
+    answerThree.value = questions[questionCounter].answers[2].c;
+    answerThree.textContent = questions[questionCounter].answers[2].c;
+    answersList.appendChild(answerThree);
+
+
     //display the question
     qContainer.textContent = questions[questionCounter].question;
+    console.log(qContainer.textContent);
 
-    // answer = document.querySelector('.ansOptions');
+    
     answersList.addEventListener("click", control);
+// 
 };
 
 //CONTROL FUNCTION **THIS FUNCTION NEEDS HELP
- function control(){
-     console.log("Entering Control Function");
-     console.log(event.target);
-    
-    if(null){
-        alert("Yay!");
-        score+=5
+ function control() {
+  
+    if(quest === true){
+        score++
+        window.alert("correct!")
+        console.log(score);
+        
+        console.log(displayScore);
     } else {
-        alert("NO!")
-        timeLeft -= 5;
-    }
+        alert("try again!");
+        window.confirm(questions[i].q);
+        
     questionCounter++
-    answerCounter++
-    startQuiz()
-};
-function nxtQuestion(e){
-    if(e === true){
-
-    }
-}
-
+    startQuiz();
+   
+// };
+ };
 //timer function **THIS FUNCTION IS FINE!
 function countdown(){
     
@@ -119,9 +112,7 @@ function countdown(){
       timerEl.textContent = timeLeft + ' Seconds Remaining'
       timeLeft--;
     } else {
-      console.log("Out of time!")
       alert("You are now out of time! Your score is " +  score + "/" + totalPts)
-      let getScore = localStorage.getItem('score');
       clearInterval(timer);
       highScores();
     }
@@ -139,10 +130,43 @@ function countdown(){
     //saveContainerText.textContent = score + "/" + totalPts;
   }
 
-  function saveContainer(){
-      
-  }
-    
+//Setting the scores and initials
+  submitButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    let playersIn = document.querySelector("#players-initials").value;
+    displayScore = score;
+    if (playersIn === "") {
+      alert("error", "Email cannot be blank");
+    } else {
+      alert("You have successfully saved your score!");
+  
+    localStorage.setItem("players-initials",playersIn);
+    localStorage.setItem("displayScore",displayScore);
+    }
+  });  
+
+//viewing past scores function
+  submitButton.addEventListener("click", function(event) {
+        // event.preventDefault();
+        card.style.display = "inline-block";
+        saveContainerText.style.display = "none";
+        let pastInt = document.querySelector("#pastInt");
+        let pastScore = document.querySelector("#pastScore");
+        let get = localStorage.getItem('players-initials');
+        let score = localStorage.getItem('displayScore');
+
+        console.log(get);
+        console.log(score);
+
+        // If they are null, return early from this function
+        if (get && score === null){
+            return console.log("null")
+        } else {
+            pastInt.textContent = get;
+            pastScore.textContent = score;
+        }
+  });
+
 
 startBtn.addEventListener("click", countdown);
 startBtn.addEventListener("click", startQuiz);

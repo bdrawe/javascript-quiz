@@ -20,11 +20,22 @@
         </div>
     </main>
 
-    <!--High Scores Page-->
+    <!--Save high score-->
     <section id="save-container">
+        <h2>Congrats! Your score was <span id="displayScore">0</span></h2>
         <h3>Please initial to save your score</h3>
-        <input type="text" id="players-initials" placeholder="Your Initials Here" maxlength="2"/>
+        <input type="text" name = "players-initials" id="players-initials" placeholder="Your Initials Here" maxlength="2"/>
+        <button id="submit">Submit</button>
     </section>
+
+    <!---Display High scores-->
+    <div class='card'>
+        <h3>High Scores</h3>
+        <div class="scoreboard">
+        <p><strong><span id="pastInt"></span></strong></p>
+        <p><strong><span id="pastScore"></span></strong></p>
+        </div>
+    </div>
     
 
 <script src="assets/js/script.js"></script>

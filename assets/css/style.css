@@ -1,6 +1,7 @@
 body {
    text-align: center;
-   background-color: gold
+   font-family: sans-serif;
+   margin: 40px;
 }
 
 .score-container {
@@ -29,3 +30,23 @@ body {
 #save-container {
     display: none;
 }
+.card {
+    display: none;
+    
+
+}
+.scoreboard {
+    width: 33%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    font-family: sans-serif;
+    padding: 20px;
+}
+/* .scoreboard p {
+    padding: 20px
+    
+} */
+
