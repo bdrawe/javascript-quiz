@@ -87,16 +87,15 @@ let startQuiz =  function(){
 
 //CONTROL FUNCTION **THIS FUNCTION NEEDS HELP
  function control() {
-  
+    let quest = event.target.id;
     if(quest === true){
         score++
         window.alert("correct!")
         console.log(score);
-        
-        console.log(displayScore);
     } else {
         alert("try again!");
-        window.confirm(questions[i].q);
+        // window.confirm(questions[i].q);
+    }
         
     questionCounter++
     startQuiz();
