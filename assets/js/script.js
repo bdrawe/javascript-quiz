@@ -12,7 +12,7 @@ let displayScore = document.querySelector("#displayScore");
 let pastInt = document.querySelector("#pastInt");
 let pastScore = document.querySelector("#pastScore");
 let card = document.querySelector(".card");
-let timeLeft = 200;
+let timeLeft = 15;
 let score = 0;
 let totalPts = 15
 let questionCounter = 0;
@@ -35,6 +35,7 @@ let questions = [
             {b: "Alert", correct: false},
             {c: "Confirm", correct: false},
         ]
+        //questions[1].answers[1].correct
      },
      {
         question: "What is the DOM API that makes prevents the default of a form submission?",
@@ -45,41 +46,38 @@ let questions = [
         ]
      },
 ];
-let qOneAnswer = questions[0].answers[1].correct;
-let qTwoAnswer = questions[1].answers[0].correct;
-let qThreeAnswer = questions[2].answers[0].correct;
+
 
 
 let startQuiz =  function(){
     //silence the button!
     startButton.style.display="none";
+    answersList.innerHTML = "";
 
     //first button
     let answerOne = document.createElement("button");
     answerOne.id = 'ansOptions';
-    answerOne.value = questions[questionCounter].answers[0].a;
+    answerOne.value = questions[questionCounter].answers[0].correct;
     answerOne.textContent = questions[questionCounter].answers[0].a;
     answersList.appendChild(answerOne);
 
     //second button
     let answerTwo = document.createElement("button");
     answerTwo.id = 'ansOptions';
-    answerTwo.value = questions[questionCounter].answers[1].b;
+    answerTwo.value = questions[questionCounter].answers[1].correct;
     answerTwo.textContent = questions[questionCounter].answers[1].b;
     answersList.appendChild(answerTwo);
     
     //third button
     let answerThree = document.createElement("button");
     answerThree.id = 'ansOptions';
-    answerThree.value = questions[questionCounter].answers[2].c;
+    answerThree.value = questions[questionCounter].answers[2].correct;
     answerThree.textContent = questions[questionCounter].answers[2].c;
     answersList.appendChild(answerThree);
 
-
+    console.log(questions[1].answers[1].correct);
     //display the question
     qContainer.textContent = questions[questionCounter].question;
-    console.log(qContainer.textContent);
-
     
     answersList.addEventListener("click", control);
 // 
@@ -87,16 +85,14 @@ let startQuiz =  function(){
 
 //CONTROL FUNCTION **THIS FUNCTION NEEDS HELP
  function control() {
-    let quest = event.target.id;
-    if(quest === true){
+    let quest = event.target.value;
+    if(quest === "true" || questionCounter > 3){
         score++
-        window.alert("correct!")
-        console.log(score);
+        alert("correct!")
     } else {
         alert("try again!");
-        // window.confirm(questions[i].q);
-    }
-        
+    } 
+
     questionCounter++
     startQuiz();
    
@@ -115,7 +111,6 @@ function countdown(){
       clearInterval(timer);
       highScores();
     }
-   
   }, 1000)
      
   }
@@ -130,7 +125,7 @@ function countdown(){
   }
 
 //Setting the scores and initials
-  submitButton.addEventListener("click", function(event) {
+  let initials = submitButton.addEventListener("click", function(event) {
     event.preventDefault();
     let playersIn = document.querySelector("#players-initials").value;
     displayScore = score;
