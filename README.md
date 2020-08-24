@@ -1,7 +1,7 @@
-# The Marvel Quiz
-How well do you know the marvel universe?
+# The Javascript Quiz
+How well do you know the language Javascript?
 
-Here is a quiz to test your knowledge of the Marvel universe. 
+Here is a quiz to test your knowledge. 
 
 ## What Technologies Used? 
 * HTML
