@@ -2,6 +2,7 @@ body {
    text-align: center;
    font-family: sans-serif;
    margin: 40px;
+   font-size: 20px;
 }
 
 .score-container {
@@ -45,8 +46,37 @@ body {
     font-family: sans-serif;
     padding: 20px;
 }
-/* .scoreboard p {
-    padding: 20px
-    
-} */
+
+button {
+    border-radius: 0px;
+    border: none;
+    background-color: orange;
+    color: white;
+    padding: 10px;
+    font-size: 30px;
+    margin: 10px;
+}
+button:hover {
+    background-color: teal;
+}
+
+#start-over {
+    display: block;
+}
+h3 {
+    font-size: 30px;
+    text-decoration: underline;
+}
+#pastInt {
+    padding: 20px;
+    background-color: lightsalmon;
+
+}
+#pastScore {
+    padding: 20px;
+    background-color: lightblue;
+}
+input {
+    padding: 15px;
+}
 

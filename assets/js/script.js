@@ -12,12 +12,14 @@ let displayScore = document.querySelector("#displayScore");
 let pastInt = document.querySelector("#pastInt");
 let pastScore = document.querySelector("#pastScore");
 let card = document.querySelector(".card");
-let timeLeft = 15;
+let intro = document.querySelector("#intro")
+let timeLeft = 10;
 let score = 0;
 let totalPts = 15
 let questionCounter = 0;
 let allPlayersScore = [];
 let submitButton = document.querySelector("#submit");
+let startOverBtn = document.querySelector("#startOver");
 let questions = [
     {
        question: "When was Javascript first used?",
@@ -51,8 +53,12 @@ let questions = [
 
 let startQuiz =  function(){
     //silence the button!
+    intro.style.display="none"
     startButton.style.display="none";
     answersList.innerHTML = "";
+    if(questionCounter > 2) {
+        highScores();
+    }
 
     //first button
     let answerOne = document.createElement("button");
@@ -60,6 +66,7 @@ let startQuiz =  function(){
     answerOne.value = questions[questionCounter].answers[0].correct;
     answerOne.textContent = questions[questionCounter].answers[0].a;
     answersList.appendChild(answerOne);
+    
 
     //second button
     let answerTwo = document.createElement("button");
@@ -75,9 +82,10 @@ let startQuiz =  function(){
     answerThree.textContent = questions[questionCounter].answers[2].c;
     answersList.appendChild(answerThree);
 
-    console.log(questions[1].answers[1].correct);
+    
     //display the question
     qContainer.textContent = questions[questionCounter].question;
+    
     
     answersList.addEventListener("click", control);
 // 
@@ -85,29 +93,31 @@ let startQuiz =  function(){
 
 //CONTROL FUNCTION **THIS FUNCTION NEEDS HELP
  function control() {
-    let quest = event.target.value;
-    if(quest === "true" || questionCounter > 3){
-        score++
-        alert("correct!")
-    } else {
-        alert("try again!");
-    } 
 
+    // let quest = event.target.value;
+    if(event.target.value === "true"){
+        score+=5;
+    } else {
+        timeLeft -= 3;
+    }
     questionCounter++
     startQuiz();
-   
-// };
+
  };
 //timer function **THIS FUNCTION IS FINE!
 function countdown(){
     
  let timer = setInterval(function() {
-  
+    //check to see if the questions have ran out
+    if(questionCounter > 2){
+        clearInterval(timer);
+    }
+    //check to see if the time has ran out
     if(timeLeft > 0) {
       timerEl.textContent = timeLeft + ' Seconds Remaining'
       timeLeft--;
     } else {
-      alert("You are now out of time! Your score is " +  score + "/" + totalPts)
+      alert("You are now out of time!");
       clearInterval(timer);
       highScores();
     }
@@ -115,29 +125,31 @@ function countdown(){
      
   }
 
+  //Setting the scores and initials
+  let initials = submitButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    let playersIn = document.querySelector("#players-initials").value;
+    displayScore = score;
+    console.log(displayScore);
+    if (playersIn === "") {
+      alert("error, Please provide your initials!")
+    } else {
+      alert("You have successfully saved your score of " + score);
+  
+    localStorage.setItem("players-initials",playersIn);
+    localStorage.setItem("displayScore",displayScore);
+    }
+  });  
+
   //loadNewPage Function **THIS FUNCTION NEEDS HELP
   function highScores(){
     timerEl.style.display ="none";
     qContainer.style.display ="none";
     answersList.style.display ="none";
     saveContainerText.style.display = "block";
-    //saveContainerText.textContent = score + "/" + totalPts;
   }
 
-//Setting the scores and initials
-  let initials = submitButton.addEventListener("click", function(event) {
-    event.preventDefault();
-    let playersIn = document.querySelector("#players-initials").value;
-    displayScore = score;
-    if (playersIn === "") {
-      alert("error", "Email cannot be blank");
-    } else {
-      alert("You have successfully saved your score!");
-  
-    localStorage.setItem("players-initials",playersIn);
-    localStorage.setItem("displayScore",displayScore);
-    }
-  });  
+
 
 //viewing past scores function
   submitButton.addEventListener("click", function(event) {
@@ -148,9 +160,8 @@ function countdown(){
         let pastScore = document.querySelector("#pastScore");
         let get = localStorage.getItem('players-initials');
         let score = localStorage.getItem('displayScore');
-
-        console.log(get);
-        console.log(score);
+        pastInt.textContent = get;
+        pastScore.textContent = score;
 
         // If they are null, return early from this function
         if (get && score === null){
@@ -160,8 +171,11 @@ function countdown(){
             pastScore.textContent = score;
         }
   });
+  function reload() {
+      location.reload();
+  }
 
-
+startOverBtn.addEventListener("click", reload);
 startBtn.addEventListener("click", countdown);
 startBtn.addEventListener("click", startQuiz);
 

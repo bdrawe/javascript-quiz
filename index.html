@@ -7,11 +7,12 @@
     <link rel = "stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <header>
-        <h2>Your Quiz</h2>
-        <div id="timer"></div>
+    <header id="intro">
+        <h2>Master Javascript!</h2>
+        <p>A quick practice to sharpen your Javascript skills. Please try your hardest to complete the challenge within the time that its given. If you run out of time, you automatically will end the quiz with the score provided. Each question is worth 5 points. Be warned if you get a question wrong, then you will be deducted 3 seconds from the original time of 10 seconds. </p>
     </header>
     <main>
+        <div id="timer"></div>
         <div class="container">
             <div id ="q-container"></div>
                 <div id = "answersList"></div>
@@ -22,19 +23,27 @@
 
     <!--Save high score-->
     <section id="save-container">
-        <h2>Congrats! Your score was <span id="displayScore">0</span></h2>
         <h3>Please initial to save your score</h3>
         <input type="text" name = "players-initials" id="players-initials" placeholder="Your Initials Here" maxlength="2"/>
         <button id="submit">Submit</button>
     </section>
 
-    <!---Display High scores-->
+    <!---Display  scores-->
     <div class='card'>
-        <h3>High Scores</h3>
+        <h3>Your Scores</h3>
         <div class="scoreboard">
-        <p><strong><span id="pastInt"></span></strong></p>
+        <p><span id="pastInt"></span></p>
+
+        <p><strong><span id="DisplayScore"></span></strong></p>
         <p><strong><span id="pastScore"></span></strong></p>
         </div>
+        <button id="startOver">Start Over</button>
+        <!--<button id="viewHS" onclick="viewDashboard()"></button>-->
+    </div>
+
+    <!-- Show High Scores -->
+    <div id = "highScoreDash">
+    
     </div>
     
 
